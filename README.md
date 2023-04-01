@@ -1,0 +1,1 @@
+# Simple cat image generator
