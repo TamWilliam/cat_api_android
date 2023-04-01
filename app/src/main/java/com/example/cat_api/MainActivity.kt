@@ -3,6 +3,7 @@ package com.example.cat_api
 import android.content.Context
 import android.content.res.Configuration
 import android.net.ConnectivityManager
+import android.net.NetworkCapabilities
 import android.os.Bundle
 import android.widget.Button
 import android.widget.ImageView
@@ -39,6 +40,11 @@ class MainActivity : AppCompatActivity() {
 
                     override fun onResponse(call: Call, response: Response) {
                         if (!response.isSuccessful) {
+                            // handle API error
+                            runOnUiThread {
+                                Toast.makeText(this@MainActivity, "Error: ${response.code}", Toast.LENGTH_SHORT).show()
+                            }
+                            return
                         }
 
                         val json = response.body?.string() ?: return
@@ -86,7 +92,9 @@ class MainActivity : AppCompatActivity() {
     private fun isNetworkAvailable(): Boolean {
         val connectivityManager =
             getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
-        val activeNetworkInfo = connectivityManager.activeNetworkInfo
-        return activeNetworkInfo != null && activeNetworkInfo.isConnected
+        val network = connectivityManager.activeNetwork ?: return false
+        val networkCapabilities = connectivityManager.getNetworkCapabilities(network)
+        return networkCapabilities?.hasCapability(NetworkCapabilities.NET_CAPABILITY_INTERNET) ?: false
     }
+
 }
