@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">Cat_API</string>
+    <string name="generate_cat">Generate cat</string>
+    <string name="cat_image_description">Generate cat</string>
+</resources>
