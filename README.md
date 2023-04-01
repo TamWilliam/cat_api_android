@@ -1,1 +1,1 @@
-# Simple cat image generator
+# Simple cat image generator made with android studio
