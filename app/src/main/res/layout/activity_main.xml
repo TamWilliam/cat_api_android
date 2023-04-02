@@ -6,16 +6,18 @@
     android:orientation="vertical">
 
     <Button
-        android:id="@+id/generate_cat_button"
+        android:id="@+id/homepage_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Generate Cat" />
+        android:text="@string/homepage_button" />
 
     <TextView
         android:id="@+id/cat_description_text_view"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:gravity="center"
         android:text="" />
+
 
     <FrameLayout
         android:layout_width="match_parent"
@@ -29,14 +31,15 @@
             android:layout_height="match_parent"
             android:layout_gravity="center"
             android:scaleType="centerCrop"
-            android:src="@drawable/cat_placeholder" />
+            android:src="@drawable/cat_placeholder"
+            android:contentDescription="@string/image_content_description" />
 
     </FrameLayout>
 
     <Button
-        android:id="@+id/homepage_button"
+        android:id="@+id/generate_cat_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Go to Homepage" />
+        android:text="@string/generate_cat_button" />
 
 </LinearLayout>

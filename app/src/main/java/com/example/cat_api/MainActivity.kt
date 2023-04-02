@@ -1,16 +1,17 @@
 package com.example.cat_api
 
+import android.content.ContentValues.TAG
 import android.content.Context
 import android.content.Intent
 import android.content.res.Configuration
 import android.net.ConnectivityManager
 import android.net.NetworkCapabilities
 import android.os.Bundle
+import android.util.Log
 import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
-import com.example.cat_api.HomePage
 import androidx.appcompat.app.AppCompatActivity
 import com.bumptech.glide.Glide
 import okhttp3.*
@@ -41,10 +42,13 @@ class MainActivity : AppCompatActivity() {
 
                 client.newCall(request).enqueue(object : Callback {
                     override fun onFailure(call: Call, e: IOException) {
+                        e.printStackTrace()
                     }
 
                     override fun onResponse(call: Call, response: Response) {
                         if (!response.isSuccessful) {
+                            Log.e(TAG, "Error: ${response.code}")
+                            return
                         }
 
                         val json = response.body?.string() ?: return

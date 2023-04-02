@@ -10,21 +10,21 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="24dp"
         android:layout_marginBottom="16dp"
-        android:text="Welcome to Cat API App"
+        android:text="@string/welcome_message"
         android:textSize="24sp"
         android:textStyle="bold" />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="You can occasionally find a description of the cat !"
+        android:text="@string/welcome_description"
         android:layout_marginBottom="16dp"/>
 
     <Button
         android:id="@+id/main_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Go to Main Activity"
+        android:text="@string/start_activity"
         android:textSize="16sp"/>
 
 </LinearLayout>

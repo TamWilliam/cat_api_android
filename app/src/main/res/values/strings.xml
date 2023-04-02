@@ -1,4 +1,10 @@
 <resources>
     <string name="app_name">Cat_API</string>
     <string name="generate_cat">Generate cat</string>
+    <string name="start_activity">Let\'s get started</string>
+    <string name="welcome_message">Welcome to Cat API App</string>
+    <string name="welcome_description">You can occasionally find a description of the cat !</string>
+    <string name="homepage_button">Go to Homepage</string>
+    <string name="image_content_description">Image of a random cat</string>
+    <string name="generate_cat_button">Generate Cat</string>
 </resources>
