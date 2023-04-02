@@ -5,16 +5,17 @@
     android:gravity="center"
     android:orientation="vertical">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Click the button to generate a cat image" />
-
     <Button
         android:id="@+id/generate_cat_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Generate Cat" />
+
+    <TextView
+        android:id="@+id/cat_description_text_view"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="" />
 
     <FrameLayout
         android:layout_width="match_parent"
@@ -31,5 +32,11 @@
             android:src="@drawable/cat_placeholder" />
 
     </FrameLayout>
+
+    <Button
+        android:id="@+id/homepage_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Go to Homepage" />
 
 </LinearLayout>

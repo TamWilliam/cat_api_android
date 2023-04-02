@@ -1,13 +1,16 @@
 package com.example.cat_api
 
 import android.content.Context
+import android.content.Intent
 import android.content.res.Configuration
 import android.net.ConnectivityManager
 import android.net.NetworkCapabilities
 import android.os.Bundle
 import android.widget.Button
 import android.widget.ImageView
+import android.widget.TextView
 import android.widget.Toast
+import com.example.cat_api.HomePage
 import androidx.appcompat.app.AppCompatActivity
 import com.bumptech.glide.Glide
 import okhttp3.*
@@ -17,6 +20,7 @@ import java.io.IOException
 class MainActivity : AppCompatActivity() {
     private lateinit var generateCatButton: Button
     private lateinit var catImageView: ImageView
+    private lateinit var catDescriptionTextView: TextView
     private var imageUrl: String? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -25,6 +29,7 @@ class MainActivity : AppCompatActivity() {
 
         generateCatButton = findViewById(R.id.generate_cat_button)
         catImageView = findViewById(R.id.cat_image_view)
+        catDescriptionTextView = findViewById(R.id.cat_description_text_view)
 
         generateCatButton.setOnClickListener {
             if (isNetworkAvailable()) {
@@ -40,25 +45,36 @@ class MainActivity : AppCompatActivity() {
 
                     override fun onResponse(call: Call, response: Response) {
                         if (!response.isSuccessful) {
-                            // handle API error
-                            runOnUiThread {
-                                Toast.makeText(this@MainActivity, "Error: ${response.code}", Toast.LENGTH_SHORT).show()
-                            }
-                            return
                         }
 
                         val json = response.body?.string() ?: return
                         val jsonArray = JSONArray(json)
                         val jsonObject = jsonArray.getJSONObject(0)
                         imageUrl = jsonObject.getString("url")
+                        val breeds = jsonObject.getJSONArray("breeds")
+                        var description = ""
+                        if (breeds.length() > 0) {
+                            val breed = breeds.getJSONObject(0)
+                            description = breed.getString("description")
+                        }
 
                         runOnUiThread {
+                            catDescriptionTextView.text = description
                             loadImage()
                         }
                     }
                 })
             } else {
                 Toast.makeText(this, "Error, internet connection required !", Toast.LENGTH_SHORT).show()
+            }
+        }
+
+        findViewById<Button>(R.id.homepage_button).setOnClickListener {
+            if (isNetworkAvailable()) {
+                val intent = Intent(this@MainActivity, HomePage::class.java)
+                startActivity(intent)
+            } else {
+                Toast.makeText(this, "Error, internet connection required!", Toast.LENGTH_SHORT).show()
             }
         }
 
@@ -75,7 +91,6 @@ class MainActivity : AppCompatActivity() {
 
     override fun onConfigurationChanged(newConfig: Configuration) {
         super.onConfigurationChanged(newConfig)
-
         loadImage()
     }
 
@@ -96,5 +111,4 @@ class MainActivity : AppCompatActivity() {
         val networkCapabilities = connectivityManager.getNetworkCapabilities(network)
         return networkCapabilities?.hasCapability(NetworkCapabilities.NET_CAPABILITY_INTERNET) ?: false
     }
-
 }
